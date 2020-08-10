@@ -8,33 +8,19 @@ backend:
     uploadMedia: "[skip ci] Upload “{{path}}”"
     deleteMedia: "[skip ci] Delete “{{path}}”"
 
+local_backend:
+  # when using a custom proxy server port
+  url: http://localhost:8081/api/v1
+  # when accessing the local site from a host other than 'localhost' or '127.0.0.1'
+  allowed_hosts: ["192.168.0.1"]
+
 media_folder: static/img
 public_folder: /img
 
 collections:
-  - name: "blog"
-    label: "Blog"
-    folder: "src/pages/blog"
-    create: true
-    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
-    fields:
-      - {
-          label: "Template Key",
-          name: "templateKey",
-          widget: "hidden",
-          default: "blog-post",
-        }
-      - { label: "Title", name: "title", widget: "string" }
-      - { label: "Publish Date", name: "date", widget: "datetime" }
-      - { label: "Description", name: "description", widget: "text" }
-      - { label: "Featured Post", name: "featuredpost", widget: "boolean" }
-      - { label: "Featured Image", name: "featuredimage", widget: image }
-      - { label: "Body", name: "body", widget: "markdown" }
-      - { label: "Tags", name: "tags", widget: "list" }
-
-  - name: "product"
-    label: "Product"
-    folder: "src/pages/product2"
+  - name: "landing"
+    label: "Landing Page"
+    folder: "src/pages/landing"
     create: true
     slug: "{{name}}"
     fields:
@@ -42,148 +28,34 @@ collections:
           label: "Template Key",
           name: "templateKey",
           widget: "hidden",
-          default: "index-page",
+          default: "landing",
         }
-      - { label: Name, name: name, widget: string }
-      - label: "Sections"
-        name: "section"
-        widget: "list"
-        fields:
-          - label: "ImageSection"
-            name: "imageBlock"
-            widget: "object"
-            fields:
-              - { label: Headline, name: headline, widget: string }
-              - { label: Image, name: image, widget: image }
-              - label: Type
-                name: type
-                widget: select
-                options:
-                  - { label: "Image on Left", value: "Left" }
-                  - { label: "Image on Right", value: "Right" }
-          - label: "ClientSection"
-            name: "clientSection"
-            widget: "object"
-            fields:
-              - { label: Name, name: name, widget: string }
+      - { label: "Name", name: "name", widget: "string" }
+      - { label: "Title", name: "title", widget: "string" }
       - widget: list
-        name: sections
-        label: Sections
+        label: "Sections"
+        name: "sections"
         required: false
-        hint: Page sections
+        hint: Page Sections
         types:
-          - name: blog_feed_section
+          - name: introduction_section
             widget: object
-            label: Blog Feed Section
+            label: Introduction Section
             fields:
               - widget: string
                 name: title
                 label: Title
                 required: false
                 hint: The title of the section
-              - widget: boolean
-                name: show_recent
-                label: Show recent posts
-                required: true
-                default: false
-                hint: >-
-                  Show the specified number of recent posts. Should not be used
-                  with author and category filters.
-              - widget: number
-                name: recent_count
-                label: Number of recent posts to show
-                required: false
-                valueType: int
-              - widget: string
-                name: author
-                label: Author Filter
-                required: false
-                hint: Filter posts by an author
-              - widget: string
-                name: category
-                label: Category Filter
-                required: false
-                hint: Filter posts by category
-              - widget: hidden
-                name: type
-                label: Object Type
-                required: true
-                hint: The type of the object
-                default: blog_feed_section
-          - name: contact_section
-            widget: object
-            label: Contact Section
-            fields:
-              - widget: hidden
-                name: type
-                label: Object Type
-                required: true
-                hint: The type of the object
-                default: contact_section
-          - name: content_section
-            widget: object
-            label: Content Section
-            fields:
-              - widget: string
-                name: title
-                label: Title
-                required: false
-                hint: The title of the section
-              - widget: markdown
-                name: content
-                label: Content
-                required: false
-                hint: The text content of the section
-              - widget: hidden
-                name: type
-                label: Object Type
-                required: true
-                hint: The type of the object
-                default: content_section
-          - name: cta_section
-            widget: object
-            label: CTA Section
-            fields:
-              - widget: string
-                name: title
-                label: Title
-                required: false
-                hint: The title of the section
-              - widget: string
-                name: subtitle
-                label: Subtitle
-                required: false
-                hint: The subtitle of the section
-              - widget: list
-                name: actions
-                label: Action Buttons
-                required: false
-                fields:
-                  - widget: string
-                    name: label
-                    label: Label
-                    required: true
-                  - widget: string
-                    name: url
-                    label: URL
-                    required: true
-                  - widget: select
-                    name: style
-                    label: Style
-                    required: true
-                    default: link
-                    options:
-                      - link
-                      - primary
-                      - secondary
-                  - widget: boolean
-                    name: new_window
-                    label: Open in new tab/window
-                    required: false
-                    default: false
-                  - widget: hidden
-                    name: type
-                    label: Object Type
-                    required: true
-                    hint: The type of the object
-                    default: action
+              - widget: select
+                name: color
+                label: Color
+                options:
+                  - { label: "Red", value: "red" }
+                  - { label: "Yellow", value: "yellow" }
+              - widget: image
+                name: image
+                label: Intro Image
+              - widget: text
+                name: description
+                label: Description

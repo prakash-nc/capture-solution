@@ -1,6 +1,6 @@
 ---
 templateKey: index-page
-name: Capture Solution
+name: Capture Solutionn
 image: /img/home-jumbotron.jpg
 heading: Here is the product page
 subheading: "With all the details "
